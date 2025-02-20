@@ -128,7 +128,7 @@ class CheckoutController extends BaseController
 
 		// We asked for the domain so lets validate it.
 		if ('2' === $location_domain) {
-			$domain = $_POST['wpcd_app_wpapp_wc_domain'];
+			$domain = apply_filters('dvicd_wpapp_wc_subdomain', $_POST['wpcd_app_wpapp_wc_domain']);
 			// Make sure the domain name is not empty.
 			if (empty($domain)) {
 				wc_add_notice(__('Site/Domain information should not be empty.', 'wpcd'), 'error');
