@@ -146,7 +146,9 @@ class CheckoutController extends BaseController
 			if (empty($domain_root)) {
 				wc_add_notice(__('The domain root is not set for this checkout process - please contact the store owner. This is a problem with the store itself and only the store owner can resolve it.', 'wpcd'), 'error');
 			}
-			$app_id = WPCD_WORDPRESS_APP()->get_app_id_by_domain_name($domain . '.' . $domain_root);
+			$domain_root = apply_filters('dvicd_wpapp_wc_domain_root', $domain . '.' . $domain_root);
+			$app_id = WPCD_WORDPRESS_APP()->get_app_id_by_domain_name($domain_root);
+
 			if (! empty($app_id)) {
 				wc_add_notice(__('Site/Domain already exists - please choose another one.', 'wpcd'), 'error');
 			}
