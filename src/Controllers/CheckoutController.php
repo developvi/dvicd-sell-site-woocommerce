@@ -135,7 +135,7 @@ class CheckoutController extends BaseController
 			}
 
 			// Make sure there are no invalid characters in the domain.
-			$check_domain = wpcd_clean_domain(sanitize_title(wc_clean(($_POST['wpcd_app_wpapp_wc_domain']))));
+			 $check_domain = apply_filters('dvicd_clean_domain', wpcd_clean_domain(sanitize_title(wc_clean(($_POST['wpcd_app_wpapp_wc_domain'])))),$_POST['wpcd_app_wpapp_wc_domain']);
 			if ($domain <> $check_domain) {
 				/* Translators: %s is the correct domain. */
 				wc_add_notice(sprintf(__('Site/Domain format is incorrect. It should probably be %s. Note that only lower-case alphanumerics and dashes are allowed.', 'wpcd'), $check_domain), 'error');
@@ -146,8 +146,8 @@ class CheckoutController extends BaseController
 			if (empty($domain_root)) {
 				wc_add_notice(__('The domain root is not set for this checkout process - please contact the store owner. This is a problem with the store itself and only the store owner can resolve it.', 'wpcd'), 'error');
 			}
-			$domain_root = apply_filters('dvicd_wpapp_wc_domain_root', $domain . '.' . $domain_root);
-			$app_id = WPCD_WORDPRESS_APP()->get_app_id_by_domain_name($domain_root);
+			$full_domain = apply_filters('dvicd_wpapp_wc_domain_root', $domain . '.' . $domain_root, $domain, $domain_root);
+			$app_id = WPCD_WORDPRESS_APP()->get_app_id_by_domain_name($full_domain);
 
 			if (! empty($app_id)) {
 				wc_add_notice(__('Site/Domain already exists - please choose another one.', 'wpcd'), 'error');
