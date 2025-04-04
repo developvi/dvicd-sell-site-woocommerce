@@ -209,7 +209,13 @@ class CheckoutController extends BaseController
 		}
 
 		if (isset($_POST['wpcd_app_wpapp_wc_domain']) && ! empty($_POST['wpcd_app_wpapp_wc_domain'])) {
-			$order->update_meta_data('wpcd_app_wpapp_wc_domain', wpcd_clean_domain(sanitize_title(wc_clean(($_POST['wpcd_app_wpapp_wc_domain'])))));
+			$domain = apply_filters('dvicd_cleaned_wpapp_wc_subdomain',$_POST['wpcd_app_wpapp_wc_domain']);
+
+			$domain_root = wpcd_get_option('wordpress_app_wc_sites_temp_domain');
+			$full_domain = apply_filters('dvicd_wpapp_wc_domain_root', $domain . '.' . $domain_root, $domain, $domain_root);
+			$cleaned_domain = str_replace('.' . $domain_root, '', $full_domain);
+
+			$order->update_meta_data('wpcd_app_wpapp_wc_domain', $cleaned_domain);
 		}
 
 		if (isset($_POST['wpcd_app_wpapp_wc_password']) && ! empty($_POST['wpcd_app_wpapp_wc_password'])) {
