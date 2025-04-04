@@ -9,7 +9,7 @@
  * License: GPLv2 or later
  * Requires at least: 5.0
  * Requires PHP: 8.1
- * Version: 1.1.0
+ * Version: 1.1.1
  *
  */
 

@@ -44,6 +44,13 @@ Developvi Sell Site WooCommerce (**DVSSELL**) is an add-on for the DVICD plugin 
 
 ---
 ## Change Log ##
+1.1.1
+----
+* NEW: Built full domain using temporary domain root and custom filters (dvicd_cleaned_wpapp_wc_subdomain, dvicd_wpapp_wc_domain_root).
+* ENH: Replaced direct sanitization (sanitize_title) with filtered input for more flexibility and better control.
+
+
+
 1.1.0
 ----
 * New : Added filter 'dvicd_wpapp_wc_subdomain' to allow modification of the domain value before use.
