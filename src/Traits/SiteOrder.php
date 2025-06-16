@@ -75,6 +75,19 @@ trait SiteOrder{
 
 		// Lets get the product id from the app record.
 		$product_id = (string) get_post_meta( $app_id, 'wpapp_wc_product_id', true );
+		/**
+		 * Run an action to allow other plugins to hook into this routine.
+		 * This is useful for plugins that want to run their own product package rules.
+		 * The action will pass the app id, product id and whether this is a subscription switch.
+		 * @since 1.0.0
+		 * @param int    $id                      The server id.
+		 * @param int    $app_id                  The app id.
+		 * @param string $product_id              The product id.
+		 * @param bool   $is_subscription_switch  Whether this is a subscription switch.
+		 * @return void
+		 * @hook dvicd_wordpress-app_run_product_package_rules
+		 */
+		do_action("dvicd_wordpress-app_run_product_package_rules", $id, $app_id,$product_id, $is_subscription_switch);
 
 		// Bail if we don't have a product id.
 		if ( empty( $product_id ) ) {
